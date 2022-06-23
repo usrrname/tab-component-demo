@@ -17,7 +17,7 @@ export default function App() {
   const value = { tabs, setTabs, state, dispatch };
 
   useEffect(() => {
-    let mounted = true; // this is more of a check.
+    let mounted = true; // check component is mounted before api request
 
     getContent(1).then((items: TabDataProps[]) => {
       if (mounted) {
@@ -33,7 +33,7 @@ export default function App() {
   }, []);
 
   return (
-    // TODO: if/else lengthiness. decouple state from render outcomes
+    // TODO: decouple conditional state from render outcomes
     <TabContext.Provider value={value}>
       {loading && (
         <>

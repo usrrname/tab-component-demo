@@ -24,8 +24,7 @@ export const BaseSlider = styled.div<TabSliderProps>`
 export const TabSlider: FC<TabSliderProps> = ({
   activeTab,
   tabs,
-  children,
-  ...rest
+  children
 }) => {
   const { dispatch } = useContext(TabContext);
 
@@ -42,46 +41,44 @@ export const TabSlider: FC<TabSliderProps> = ({
     />
   ));
 
-  const initialChildren = allTabs?.slice(0, 7);
-  const nextChildren = allTabs?.slice(7, tabs.length);
+  const initialTabs = allTabs.slice(0, 7);
+  const nextTabs = allTabs.slice(7, tabs.length);
 
-  const [displayChildren, setChildren] = useState<TabChildren>(allTabs);
+  const [displayedTabs, setTabs] = useState<TabChildren>(allTabs);
   const [showLeftChevron, setLeftChevron] = useState<boolean>(false);
   const [showRightChevron, setRightChevron] = useState<boolean>(true);
 
   return (
     <>
-      {/* TODO: reduce repetition */}
-      <BaseSlider activeTab={activeTab} tabs={tabs} {...rest}>
+      {/* TODO: reduce prop repetition */}
+      <BaseSlider activeTab={activeTab} tabs={tabs}>
         <TabWrapper activeTab={activeTab} tabs={tabs}>
           <Chevron
             display={showLeftChevron ? "inline-block" : "none"}
             aria-label="chevron left"
             onClick={async () => {
-              setChildren(initialChildren);
+              setTabs(initialTabs);
               setLeftChevron(false);
               setRightChevron(true);
             }}
           >
             &lsaquo;
           </Chevron>
-
-          {displayChildren}
-
-          {tabs.length > 7 && (
-            <Chevron
-              display={showRightChevron ? "inline-block" : "none"}
-              aria-label="chevron right"
-              onClick={async () => {
-                setChildren(nextChildren);
-                setRightChevron(false);
-                setLeftChevron(true);
-              }}
-            >
-              &rsaquo;
-            </Chevron>
-          )}
+          {displayedTabs}
         </TabWrapper>
+        {tabs.length > 7 && (
+          <Chevron
+            display={showRightChevron ? "inline-block" : "none"}
+            aria-label="chevron right"
+            onClick={async () => {
+              setTabs(nextTabs);
+              setRightChevron(false);
+              setLeftChevron(true);
+            }}
+          >
+            &rsaquo;
+          </Chevron>
+        )}
       </BaseSlider>
     </>
   );
