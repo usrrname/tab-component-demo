@@ -1,0 +1,24 @@
+{
+    "include": [
+        "./src/**/*",
+        "./*/**.d.ts"
+    ],
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "paths": {
+        "typings": "./typings/"
+    },
+    "compilerOptions": {
+        "typeRoots": [
+            "./typings/**.d.ts"
+        ],
+        "strict": true,
+        "target": "es2020",
+        "esModuleInterop": true,
+        "lib": [
+            "dom",
+            "es2015"
+        ],
+        "jsx": "react-jsx"
+    }
+}
